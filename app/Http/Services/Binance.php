@@ -8,7 +8,7 @@ use Exception;
 
 class Binance
 {
-    protected $base = "https://api.binance.com/api/", $wapi = "https://api.binance.com/wapi/", $api_key, $api_secret;
+    protected $base = "http://api.binance.com/api/", $wapi = "https://api.binance.com/wapi/", $api_key, $api_secret;
     protected $depthCache = [];
     protected $depthQueue = [];
     protected $chartQueue = [];
