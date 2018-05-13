@@ -11,7 +11,7 @@ class IndexController extends Controller
         $key = config('platform.binance.key');
         $secret = config('platform.binance.secret');
         $api = new Binance($key, $secret);
-        $data = $api->time();
+        $data = $api->depth("BTCUSDT");;
         dd($data);
     }
 }
