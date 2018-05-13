@@ -8,7 +8,7 @@ use Exception;
 
 class Binance
 {
-    protected $base = "http://api.binance.com/api/", $wapi = "https://api.binance.com/wapi/", $api_key, $api_secret;
+    protected $base = "https://api.binance.com/api/", $wapi = "https://api.binance.com/wapi/", $api_key, $api_secret;
     protected $depthCache = [];
     protected $depthQueue = [];
     protected $chartQueue = [];
@@ -38,8 +38,8 @@ class Binance
             $sendData = [
                 'headers' => $headers,
             ];
-            $client = new Client(['base_uri' => $this->base,]);
-            $request = new Request($method, $url, $sendData);
+            $client = new Client();
+            $request = new Request($method, $this->base.$url, $sendData);
             $response = $client->send($request, ['timeout' => 5]);
             $data = $response->getBody();
             dd($data);
