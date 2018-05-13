@@ -33,16 +33,31 @@ class Binance
 
     private function apiRequest($url, $method = "GET") {
         if ( empty($this->api_key) ) die("apiRequest error: API Key not set!");
+        $opt = [
+            "http" => [
+                "method" => $method,
+                "ignore_errors" => true,
+                "header" => "User-Agent: Mozilla/4.0 (compatible; PHP Binance API)\r\nX-MBX-APIKEY: {$this->api_key}\r\n"
+            ]
+        ];
+        $context = stream_context_create($opt);
+        try {
+            $data = file_get_contents($this->base.$url, false, $context);
+        } catch ( Exception $e ) {
+            return ["error"=>$e->getMessage()];
+        }
+        return json_decode($data, true);
+//        if ( empty($this->api_key) ) die("apiRequest error: API Key not set!");
 //        try {
-            $headers = ['User-Agent' => 'Mozilla/4.0 (compatible; PHP Binance API)', 'X-MBX-APIKEY' => $this->api_key];
-            $sendData = [
-                'headers' => $headers,
-            ];
-            $client = new Client();
-            $request = new Request($method, $this->base.$url, $sendData);
-            $response = $client->send($request, ['timeout' => 5]);
-            $data = $response->getBody();
-            dd($data);
+//            $headers = ['User-Agent' => 'Mozilla/4.0 (compatible; PHP Binance API)', 'X-MBX-APIKEY' => $this->api_key];
+//            $sendData = [
+//                'headers' => $headers,
+//            ];
+//            $client = new Client();
+//            $request = new Request($method, $this->base.$url, $sendData);
+//            $response = $client->send($request, ['timeout' => 5]);
+//            $data = $response->getBody();
+//            dd($data);
 //        } catch ( Exception $e ) {
 //            return ["error"=>$e->getMessage()];
 //        }
