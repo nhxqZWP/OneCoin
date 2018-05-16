@@ -10,7 +10,7 @@ class IndexController extends Controller
     public function getIndex()
     {
         $data = BinanceService::getMACD();
-        dd($data);
+        dd(array_reverse($data));
 
         $key = config('platform.binance.key');
         $secret = config('platform.binance.secret');
