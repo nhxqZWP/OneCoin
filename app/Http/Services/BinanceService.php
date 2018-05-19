@@ -21,15 +21,11 @@ class BinanceService
                 $kStockList[$k]['ema26'] = (2.0 * $v['close'] + ($long-1) * $kStockList[$k-1]['ema26']) / ($long+1);
                 $kStockList[$k]['dif'] = $kStockList[$k]['ema12'] - $kStockList[$k]['ema26'];
                 $kStockList[$k]['dea'] = (2.0 * $kStockList[$k]['dif'] + ($m-1)*$kStockList[$k-1]['dea']) / ($m+1);
-                $kStockList[$k]['macd'] = 2.0 * ($kStockList[$k]['dif'] - $kStockList[$k]['dea']);
+//                $kStockList[$k]['macd'] = 2.0 * ($kStockList[$k]['dif'] - $kStockList[$k]['dea']);
+                $kStockList[$k]['macd'] = $kStockList[$k]['dif'] - $kStockList[$k]['dea'];
             }
         }
         return $kStockList;
-    }
-
-    public static function getEMA($param)
-    {
-
     }
 
     public static function getCandleSticks($pair = 'BTCUSDT', $period = '1h')
@@ -40,5 +36,13 @@ class BinanceService
         $data = $api->candlesticks($pair, $period);;
         if (is_array($data)) return array_values($data);
         return null;
+    }
+
+    public static function tradeBtc()
+    {
+        $macds = self::getMACD($pair = 'BTCUSDT', $period = '30m');
+        // 买点 MACD 先<0后>0且值>5
+
+        // 卖点 MACD 第二次下降 或 先>0后<0
     }
 }
