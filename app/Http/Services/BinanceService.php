@@ -12,13 +12,15 @@ class BinanceService
         //Periods: 1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1M
         $kList = self::getCandleSticks($pair, $period);
         $kStockList = [];
+        $i = 0;
         foreach ($kList as $k => $v) {
-            if ($k == 0) {
+            if ($i == 0) {
                 $kStockList[$k]['ema12'] = $v['close'];
                 $kStockList[$k]['ema26'] = $v['close'];
                 $kStockList[$k]['dif'] = 0;
                 $kStockList[$k]['dea'] = 0;
                 $kStockList[$k]['macd'] = 0;
+                $i++;
             } else {
                 $kStockList[$k]['ema12'] = (2.0 * $v['close'] + ($short-1) * $kStockList[$k-1]['ema12']) / ($short+1);
                 $kStockList[$k]['ema26'] = (2.0 * $v['close'] + ($long-1) * $kStockList[$k-1]['ema26']) / ($long+1);
@@ -26,6 +28,7 @@ class BinanceService
                 $kStockList[$k]['dea'] = (2.0 * $kStockList[$k]['dif'] + ($m-1)*$kStockList[$k-1]['dea']) / ($m+1);
 //                $kStockList[$k]['macd'] = 2.0 * ($kStockList[$k]['dif'] - $kStockList[$k]['dea']);
                 $kStockList[$k]['macd'] = $kStockList[$k]['dif'] - $kStockList[$k]['dea'];
+                $i++;
             }
         }
         return $kStockList;
@@ -38,7 +41,8 @@ class BinanceService
 //        $api = new Binance($key, $secret);
         $api = app('Binance');
         $data = $api->candlesticks($pair, $period);;
-        if (is_array($data)) return array_values($data);
+//        if (is_array($data)) return array_values($data);
+        if (is_array($data)) return $data;
         return null;
     }
 
@@ -47,15 +51,24 @@ class BinanceService
         $macds = self::getMACD($pair = 'BTCUSDT', $period = '30m');
         $newMacd = $macds[1]['macd'];
         $preMacd = $macds[2]['macd'];
+
+        // 钱包余额
         $btc = Redis::get('binance:btc');
         $usdt = Redis::get('binance:usdt');
+        if (is_null($usdt)) $usdt = 5000;
         $keyStatus = 'binance:'.$pair.$period;
+
         // 买点 MACD 先<0后>0且值>5
         if ($preMacd < 0 && $newMacd > 0) {
             if ($newMacd > 5) {
-                Redis::set($keyStatus, 1); //下买单
-                TradeRecord::createBuyOrder($usdt);
+                $status = Redis::get($keyStatus);
+                if (is_null($status) || $status == 0) {
+                    Redis::set($keyStatus, 1); //下买单
+                    $amount = TradeRecord::createBuyOrder($usdt, $pair);
+                    Redis::set('binance:btc', $amount / pow(10, 8));
+                }
             }
+            Redis::set($keyStatus, 2); // 标记
         }
 
         // 卖点 MACD 第二次下降 或 先>0后<0
