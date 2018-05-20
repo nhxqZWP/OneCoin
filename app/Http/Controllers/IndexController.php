@@ -12,7 +12,7 @@ class IndexController extends Controller
         $key = config('platform.binance.key');
         $secret = config('platform.binance.secret');
         $api = new Binance($key, $secret);
-        $price = $api->prices();
+        $price = $api->prices()['BTCUSDT'];
         var_dump($price);
         $data = $api->candlesticks("BTCUSDT", '30m');
         $data = array_values($data);
