@@ -33,9 +33,10 @@ class BinanceService
 
     public static function getCandleSticks($pair = 'BTCUSDT', $period = '1h')
     {
-        $key = config('platform.binance.key');
-        $secret = config('platform.binance.secret');
-        $api = new Binance($key, $secret);
+//        $key = config('platform.binance.key');
+//        $secret = config('platform.binance.secret');
+//        $api = new Binance($key, $secret);
+        $api = app('Binance');
         $data = $api->candlesticks($pair, $period);;
         if (is_array($data)) return array_values($data);
         return null;

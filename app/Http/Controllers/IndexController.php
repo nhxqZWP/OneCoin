@@ -9,9 +9,10 @@ class IndexController extends Controller
 {
     public function getIndex()
     {
-        $key = config('platform.binance.key');
-        $secret = config('platform.binance.secret');
-        $api = new Binance($key, $secret);
+//        $key = config('platform.binance.key');
+//        $secret = config('platform.binance.secret');
+//        $api = new Binance($key, $secret);
+        $api = app('Binance');
         $price = $api->prices()['BTCUSDT'];
         var_dump($price);
         $depth = $api->depth('BTCUSDT');
