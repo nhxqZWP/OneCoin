@@ -14,12 +14,14 @@ class IndexController extends Controller
         $api = new Binance($key, $secret);
         $price = $api->prices();
         var_dump($price);
+        $depth = $api->depth('BTCUSDT');
+        var_dump($depth);
 
         $data = BinanceService::getMACD($pair = 'BTCUSDT', $period = '30m');
-        dd(array_reverse($data));
-
-        $data = $api->candlesticks("BTCUSDT", '1h');
-        $data = array_values($data);
-        dd($data);
+        var_dump(array_reverse($data));
+//
+//        $data = $api->candlesticks("BTCUSDT", '1h');
+//        $data = array_values($data);
+//        dd($data);
     }
 }
