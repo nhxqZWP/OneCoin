@@ -21,7 +21,7 @@ class CreateTradeRecordTable extends Migration
             $table->unsignedTinyInteger('type');  //0-buy 1-sell
             $table->unsignedBigInteger('profit');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default('');
+//            $table->timestamp('updated_at')->default('');
 
             $table->index('type');
         });
