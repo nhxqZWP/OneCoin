@@ -5,11 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Cryptocurrencies Trade Test</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- Styles -->
         <style>
             html, body {
@@ -43,10 +43,12 @@
 
             .content {
                 text-align: center;
+                border: 1px solid red;
             }
 
             .title {
-                font-size: 84px;
+                /*font-size: 84px;*/
+                font-size: 14px;
             }
 
             .links > a {
@@ -66,28 +68,38 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
                 <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
+                    BTC: {{$btc}} USDT: {{$usdt}}
                 </div>
-            @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <table class="table table-striped">
+                        <tr>
+                            <td>ID</td>
+                            <td>Price</td>
+                            <td>Amount</td>
+                            <td>Type</td>
+                            <td>Profit</td>
+                            <td>Time</td>
+                        </tr>
+                        @if (!empty($list))
+                            @foreach($list as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->price / pow(10, 8)}}</td>
+                                    <td>{{$item->amount / pow(10, 8)}}</td>
+                                    <td>{{$item->type == 0 ? 'buy' : 'sell'}}</td>
+                                    <td>{{$item->profit / pow(10,6)}}%</td>
+                                    <td>{{$item->created_at}}</td>
+                                </tr>
+                                @endforeach
+                            @endif
+                    </table>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="links" style="width: 800px">
+                    <a href="https://www.binance.com/tradeDetail.html?symbol=BTC_USDT">Binance BTCUSDT</a>
                 </div>
             </div>
         </div>

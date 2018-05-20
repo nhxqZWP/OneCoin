@@ -51,6 +51,9 @@ class BinanceService
     public static function tradeBtc()
     {
         $macds = self::getMACD($pair = 'BTCUSDT', $period = '30m');
+        $timestamp = $macds[0]['timestamp'];
+        $timeMark = Redis::get('binance:timestamp'.$pair);
+        if (!is_null($timeMark) && $timeMark == $timestamp) return null;
         $newMacd = $macds[1]['macd'];
         $preMacd = $macds[2]['macd'];
 
@@ -59,20 +62,51 @@ class BinanceService
         $usdt = Redis::get('binance:usdt');
         if (is_null($usdt)) $usdt = 5000;
         $keyStatus = 'binance:'.$pair.$period;
+        $status = Redis::get($keyStatus);
+        if (is_null($status)) $status = 0;
 
         // 买点 MACD 先<0后>0且值>5
         if ($preMacd < 0 && $newMacd > 0) {
             if ($newMacd > 5) {
-                $status = Redis::get($keyStatus);
                 if (is_null($status) || $status == 0) {
-                    Redis::set($keyStatus, 1); //下买单
-                    $amount = TradeRecord::createBuyOrder($usdt, $pair);
-                    Redis::set('binance:btc', $amount / pow(10, 8));
+                    $buyBtc = TradeRecord::createBuyOrder($usdt, $pair);
+                    Redis::set('binance:btc', $buyBtc / pow(10, 8));
+                    Redis::set('binance:usdt', 0);
+                    Redis::set($keyStatus, 1); //下买单并成交
                 }
+            } else {
+                Redis::set($keyStatus, 2); // 标记金叉但不足5
             }
-            Redis::set($keyStatus, 2); // 标记
+        }
+        if ($status == 2 && $newMacd > 5) {
+            $amount = TradeRecord::createBuyOrder($usdt, $pair);
+            Redis::set('binance:btc', $amount / pow(10, 8));
+            Redis::set('binance:usdt', 0);
+            Redis::set($keyStatus, 1); //下买单并成交
         }
 
         // 卖点 MACD 第二次下降 或 先>0后<0
+        if ($status == 1) {
+            $do = 0;
+            if ($preMacd > $newMacd) {
+                if ($status == 3) {
+                    $sellUsdt = TradeRecord::createSellOrder($btc, $pair, 5000);
+                    Redis::set('binance:btc', 0);
+                    Redis::set('binance:usdt', $sellUsdt);
+                    Redis::set($keyStatus, 4); //下卖单并成交
+                    $do = 1;
+                } else {
+                    Redis::set($keyStatus, 3);
+                }
+            }
+            if ($preMacd > 0 && $newMacd < 0 && $do == 0) {
+                $sellUsdt = TradeRecord::createSellOrder($btc, $pair, 5000);
+                Redis::set('binance:btc', 0);
+                Redis::set('binance:usdt', $sellUsdt);
+                Redis::set($keyStatus, 4); //下卖单并成交
+            }
+        }
+
+        Redis::set('binance:timestamp'.$pair, $timestamp);
     }
 }
