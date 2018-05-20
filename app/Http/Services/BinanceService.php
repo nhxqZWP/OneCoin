@@ -33,7 +33,7 @@ class BinanceService
                 $i++;
             }
         }
-        return $kStockList;
+        return array_reverse($kStockList);
     }
 
     public static function getCandleSticks($pair = 'BTCUSDT', $period = '1h')

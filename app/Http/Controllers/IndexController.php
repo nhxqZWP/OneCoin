@@ -20,7 +20,6 @@ class IndexController extends Controller
 
         $data = BinanceService::getMACD($pair = 'BTCUSDT', $period = '30m');
         dd($data);
-        var_dump(array_reverse($data));
 //
 //        $data = $api->candlesticks("BTCUSDT", '1h');
 //        $data = array_values($data);
