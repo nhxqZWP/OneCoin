@@ -15,19 +15,21 @@ class BinanceService
         $i = 0;
         foreach ($kList as $k => $v) {
             if ($i == 0) {
-                $kStockList[$k]['ema12'] = $v['close'];
-                $kStockList[$k]['ema26'] = $v['close'];
-                $kStockList[$k]['dif'] = 0;
-                $kStockList[$k]['dea'] = 0;
-                $kStockList[$k]['macd'] = 0;
+                $kStockList[$i]['ema12'] = $v['close'];
+                $kStockList[$i]['ema26'] = $v['close'];
+                $kStockList[$i]['dif'] = 0;
+                $kStockList[$i]['dea'] = 0;
+                $kStockList[$i]['macd'] = 0;
+                $kStockList[$i]['timestamp'] = $k;
                 $i++;
             } else {
-                $kStockList[$k]['ema12'] = (2.0 * $v['close'] + ($short-1) * $kStockList[$k-1]['ema12']) / ($short+1);
-                $kStockList[$k]['ema26'] = (2.0 * $v['close'] + ($long-1) * $kStockList[$k-1]['ema26']) / ($long+1);
-                $kStockList[$k]['dif'] = $kStockList[$k]['ema12'] - $kStockList[$k]['ema26'];
-                $kStockList[$k]['dea'] = (2.0 * $kStockList[$k]['dif'] + ($m-1)*$kStockList[$k-1]['dea']) / ($m+1);
+                $kStockList[$i]['ema12'] = (2.0 * $v['close'] + ($short-1) * $kStockList[$i-1]['ema12']) / ($short+1);
+                $kStockList[$i]['ema26'] = (2.0 * $v['close'] + ($long-1) * $kStockList[$i-1]['ema26']) / ($long+1);
+                $kStockList[$i]['dif'] = $kStockList[$i]['ema12'] - $kStockList[$i]['ema26'];
+                $kStockList[$i]['dea'] = (2.0 * $kStockList[$i]['dif'] + ($m-1)*$kStockList[$i-1]['dea']) / ($m+1);
 //                $kStockList[$k]['macd'] = 2.0 * ($kStockList[$k]['dif'] - $kStockList[$k]['dea']);
-                $kStockList[$k]['macd'] = $kStockList[$k]['dif'] - $kStockList[$k]['dea'];
+                $kStockList[$i]['macd'] = $kStockList[$i]['dif'] - $kStockList[$i]['dea'];
+                $kStockList[$i]['timestamp'] = $k;
                 $i++;
             }
         }
