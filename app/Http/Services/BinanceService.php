@@ -2,6 +2,9 @@
 
 namespace App\Http\Services;
 
+use App\Models\TradeRecord;
+use Illuminate\Support\Facades\Redis;
+
 class BinanceService
 {
     public static function getMACD($pair = 'BTCUSDT', $period = '1h', $short=12,$long=26,$m=9)
@@ -41,7 +44,18 @@ class BinanceService
     public static function tradeBtc()
     {
         $macds = self::getMACD($pair = 'BTCUSDT', $period = '30m');
+        $newMacd = $macds[1]['macd'];
+        $preMacd = $macds[2]['macd'];
+        $btc = Redis::get('binance:btc');
+        $usdt = Redis::get('binance:usdt');
+        $keyStatus = 'binance:'.$pair.$period;
         // 买点 MACD 先<0后>0且值>5
+        if ($preMacd < 0 && $newMacd > 0) {
+            if ($newMacd > 5) {
+                Redis::set($keyStatus, 1); //下买单
+                TradeRecord::createBuyOrder($usdt);
+            }
+        }
 
         // 卖点 MACD 第二次下降 或 先>0后<0
     }
