@@ -43,7 +43,6 @@
 
             .content {
                 text-align: center;
-                border: 1px solid red;
             }
 
             .title {
