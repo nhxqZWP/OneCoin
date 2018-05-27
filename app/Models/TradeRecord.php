@@ -14,35 +14,37 @@ class TradeRecord extends Model
     {
         $api = app('Binance');
         $price = $api->prices()[$pair];
-        $amount = floor($usdt / $price * pow(10, 8));
+//        $price = 7318.00;
+        $buy = floor($usdt / $price * pow(10, 8));
+        // 下买单 todo
         $data = [
             'price' => $price * pow(10, 8),
-            'amount' => $amount,
+            'use' => $usdt * pow(10, 8),
+            'amount' => $buy,
             'type' => 0,
             'profit' => 0,
         ];
         self::insert($data);
-        return $amount;
+        return $buy / pow(10,8);
     }
 
-    public static function createSellOrder($btc, $pair, $init = 5000)
+    public static function createSellOrder($btc, $pair)
     {
-        $preProfitRe = self::where('type', 1)->orderBy('id', 'desc')->first();
-        if (is_null($preProfitRe)) {
-            $preAmount = $init * pow(10, 8);
-        } else {
-            $preAmount = $preProfitRe->amount;
-        }
+        $buyRecord = self::where('type', 0)->orderBy('id', 'desc')->first();
+        $useUsdt = $buyRecord->use;
         $api = app('Binance');
         $price = $api->prices()[$pair];
-        $amount = floor($btc * $price);
+//        $price = 7320.00;
+        $sell = floor($btc * $price * pow(10, 8) * (1-0.002)) ;
+        // 下卖单 todo
         $data = [
             'price' => $price * pow(10, 8),
-            'amount' => $amount * pow(10, 8),
+            'use' => $btc * pow(10, 8),
+            'amount' => $sell,
             'type' => 1,
-            'profit' => ($amount * pow(10, 8) - $preAmount) / $preAmount * pow(10, 8),
+            'profit' => ($sell - $useUsdt) / $useUsdt * pow(10, 8),
         ];
         self::insert($data);
-        return $amount;
+        return $sell / pow(10, 8);
     }
 }

@@ -11,9 +11,13 @@ class IndexController extends Controller
 {
     public function getIndex()
     {
-        $btc = Redis::get('binance:btc');
+        // test
+//        BinanceService::tradeBtc2();
+//        dd(1);
+
+        $btc = Redis::get('2_binance:btc');
         if (is_null($btc)) $btc = 0;
-        $usdt = Redis::get('binance:usdt');
+        $usdt = Redis::get('2_binance:usdt');
         if (is_null($usdt)) $usdt = 5000;
         $data = TradeRecord::get();
         return view('welcome', ['list' => $data, 'btc' => $btc, 'usdt' => $usdt]);

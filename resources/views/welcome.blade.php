@@ -14,7 +14,7 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: #000000;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -68,7 +68,7 @@
     <body>
         <div class="flex-center position-ref full-height">
                 <div class="top-right links">
-                    BTC: {{$btc}} USDT: {{$usdt}}
+                    BTC: {{$btc}} &nbsp;&nbsp; USDT: {{$usdt}}
                 </div>
 
             <div class="content">
@@ -77,6 +77,7 @@
                         <tr>
                             <td>ID</td>
                             <td>Price</td>
+                            <td>Use</td>
                             <td>Amount</td>
                             <td>Type</td>
                             <td>Profit</td>
@@ -87,9 +88,10 @@
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->price / pow(10, 8)}}</td>
+                                    <td>{{$item->use / pow(10, 8)}}</td>
                                     <td>{{$item->amount / pow(10, 8)}}</td>
                                     <td>{{$item->type == 0 ? 'buy' : 'sell'}}</td>
-                                    <td>{{$item->profit / pow(10,6)}}%</td>
+                                    <td>{{$item->profit / pow(10, 6) - 0.1}}%</td>
                                     <td>{{$item->created_at}}</td>
                                 </tr>
                                 @endforeach

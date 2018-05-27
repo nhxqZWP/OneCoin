@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
            for ($i=0; $i<10;$i++) {
-               BinanceService::tradeBtc();
-               \Log::debug('run console');
+               BinanceService::tradeBtc2();
+//               \Log::debug('run console');
                sleep(5);
            }
         })->everyMinute();
