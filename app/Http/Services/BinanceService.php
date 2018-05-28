@@ -121,7 +121,7 @@ class BinanceService
         $macds = self::getMACD($pair, $period);
         $timestamp = $macds[0]['timestamp'];
         $timeMark = Redis::get('2_binance:timestamp'.$pair);
-        if (!is_null($timeMark) && $timeMark == $timestamp) return null;
+        if (!is_null($timeMark) && $timeMark == $timestamp) return $macds[1]['macd'];
         $newMacd = $macds[1]['macd'];
         $preMacd = $macds[2]['macd'];
 
@@ -159,5 +159,6 @@ class BinanceService
 
         END:
         Redis::set('2_binance:timestamp'.$pair, $timestamp);
+        return $newMacd;
     }
 }
