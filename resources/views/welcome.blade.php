@@ -91,7 +91,7 @@
                                     <td>{{$item->use / pow(10, 8)}}</td>
                                     <td>{{$item->amount / pow(10, 8)}}</td>
                                     <td>{{$item->type == 0 ? 'buy' : 'sell'}}</td>
-                                    <td>{{$item->profit / pow(10, 6) - 0.1}}%</td>
+                                    <td>{{$item->profit / pow(10, 6)}}%</td>
                                     <td>{{$item->created_at}}</td>
                                 </tr>
                                 @endforeach
