@@ -14,6 +14,9 @@ class IndexController extends Controller
         // test
 //        BinanceService::tradeBtc2();
 //        dd(1);
+        $pair = 'BTCUSDT'; $period = '30m';
+        $macds = BinanceService::getMACD($pair, $period);
+        dd($macds);
 
         $btc = Redis::get('2_binance:btc');
         if (is_null($btc)) $btc = 0;
