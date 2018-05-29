@@ -119,7 +119,7 @@ class BinanceService
     public static function tradeBtc2($pair = 'BTCUSDT', $period = '30m')
     {
         $macds = self::getMACD($pair, $period);
-        $timestamp = $macds[0]['timestamp'];
+        $timestamp = $macds[1]['timestamp'];
         $timeMark = Redis::get('2_binance:timestamp'.$pair);
         if (!is_null($timeMark) && $timeMark == $timestamp) return $macds[1]['macd'];
         $newMacd = $macds[1]['macd'];
