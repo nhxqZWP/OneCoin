@@ -124,7 +124,7 @@ class BinanceService
         if (!is_null($timeMark) && $timeMark == $timestamp) return $macds[1]['macd'];
         $newMacd = $macds[1]['macd'];
         $preMacd = $macds[2]['macd'];
-
+        \Log::debug('macd_new_'.$newMacd.'_pre_'.$preMacd);
 //        $timestamp = 0;
 //        $preMacd = - 14.5;
 //        $newMacd = - 15.1;
