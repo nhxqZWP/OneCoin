@@ -20,7 +20,7 @@ class CreateTradeRecordTable extends Migration
             $table->unsignedBigInteger('use');
             $table->unsignedBigInteger('amount');
             $table->unsignedTinyInteger('type');  //0-buy 1-sell
-            $table->unsignedBigInteger('profit');
+            $table->double('profit');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 //            $table->timestamp('updated_at')->default('');
 
