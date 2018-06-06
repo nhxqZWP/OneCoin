@@ -72,7 +72,7 @@
                 </div>
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title m-b-md" style="width:800px;height:500px; overflow:scroll; border:1px solid;">
                     <table class="table table-striped">
                         <tr>
                             <td>ID</td>
