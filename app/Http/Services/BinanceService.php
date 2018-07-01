@@ -124,7 +124,9 @@ class BinanceService
         if (!is_null($timeMark) && $timeMark == $timestamp) return $macds[1]['macd'];
         $newMacd = $macds[1]['macd'];
         $preMacd = $macds[2]['macd'];
-        \Log::debug('macd_new_'.$newMacd.'_pre_'.$preMacd);
+        $DIF = $macds[1]['dif'];
+        $DEA = $macds[1]['dea'];
+//        \Log::debug('macd_new_'.$newMacd.'_pre_'.$preMacd);
 //        $timestamp = 0;
 //        $preMacd = - 14.5;
 //        $newMacd = - 15.1;
@@ -137,8 +139,8 @@ class BinanceService
         $status = Redis::get($keyStatus);
         if (is_null($status)) $status = 0;
 
-        // 小于零值变大时买入
-        if ($preMacd < 0 && $newMacd < 0 && $newMacd > $preMacd && $status != 1) {
+        // 小于零值变大时买入 金叉
+        if ($DIF < 0 && $DEA < 0 && $preMacd < 0 && $newMacd > 0 && $status != 1) {
 //        if ($newMacd > $preMacd && $status != 1) {
             $buyBtc = TradeRecord::createBuyOrder($usdt, $pair);
             Redis::set('2_binance:btc', $buyBtc);
@@ -148,15 +150,27 @@ class BinanceService
         }
 
         // 值变小时卖出
+//        if (intval($status) == 1) {
+//            if ($newMacd < $preMacd) {
+//                $sellUsdt = TradeRecord::createSellOrder($btc, $pair);
+//                Redis::set('2_binance:btc', 0);
+//                Redis::set('2_binance:usdt', $sellUsdt);
+//                Redis::set($keyStatus, 2); //下卖单并成交
+//                goto END;
+//            }
+//        }
+
+        // 死叉时卖出
         if (intval($status) == 1) {
-            if ($newMacd < $preMacd) {
+             if ($preMacd > 0 && $newMacd < 0) {
                 $sellUsdt = TradeRecord::createSellOrder($btc, $pair);
                 Redis::set('2_binance:btc', 0);
                 Redis::set('2_binance:usdt', $sellUsdt);
                 Redis::set($keyStatus, 2); //下卖单并成交
                 goto END;
-            }
+             }
         }
+
 
         END:
         Redis::set('2_binance:timestamp'.$pair, $timestamp);

@@ -26,10 +26,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-           for ($i=0; $i<10;$i++) {
+           for ($i=0; $i<19;$i++) {
                $res = BinanceService::tradeBtc2();
 //               \Log::debug('macd '.$res);
-               sleep(5);
+               sleep(2);
            }
         })->everyMinute();
     }
