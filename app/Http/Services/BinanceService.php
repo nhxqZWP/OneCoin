@@ -140,7 +140,7 @@ class BinanceService
         if (is_null($status)) $status = 0;
 
         // 小于零值变大时买入 金叉
-        if ($DIF < 0 && $DEA < 0 && $preMacd < 0 && $newMacd > 0 && $status != 1) {
+        if ($DIF < -10 && $DEA < -10 && $preMacd < 0 && $newMacd > 0 && $status != 1) {
 //        if ($newMacd > $preMacd && $status != 1) {
             $buyBtc = TradeRecord::createBuyOrder($usdt, $pair);
             Redis::set('2_binance:btc', $buyBtc);
