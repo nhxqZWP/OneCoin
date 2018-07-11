@@ -400,6 +400,7 @@ class WantService
                     break;
                case 'bitmex':
                     $data = app('Bitmex')->getTicker();
+                    $data = [0, $data];
                     break;
           }
           return $data;
