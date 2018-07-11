@@ -66,7 +66,8 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
+{{--<div class="flex-center position-ref full-height">--}}
+<div class="text-center position-ref full-height">
     {{--<div class="top-center links">--}}
         {{--钱包余额: {{$xbt}} XBT&nbsp;&nbsp; --}}{{--USDT: {{$usdt}}--}}
     {{--</div>--}}
