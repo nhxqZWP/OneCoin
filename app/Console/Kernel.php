@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Http\Services\BinanceService;
+use App\Http\Services\WantService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,13 +26,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-           for ($i=0; $i<19;$i++) {
-               $res = BinanceService::tradeBtc2();
-//               \Log::debug('macd '.$res);
-               sleep(2);
-           }
-        })->everyMinute();
+         // macd
+//        $schedule->call(function () {
+//           for ($i=0; $i<19;$i++) {
+//               $res = BinanceService::tradeBtc2();
+////               \Log::debug('macd '.$res);
+//               sleep(2);
+//           }
+//        })->everyMinute();
+
+          // 标记k线连续涨跌
+//         $schedule->call(function () {
+//              WantService::markPriceChange('fcoin', 'ftusdt', 'M1');
+//         })->everyMinute();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\Binance;
 use App\Http\Services\BinanceService;
+use App\Http\Services\WantService;
 use App\Models\TradeRecord;
 use Illuminate\Support\Facades\Redis;
 
@@ -11,6 +12,18 @@ class IndexController extends Controller
 {
     public function getIndex()
     {
+         //bitmex test
+         $data = WantService::getBalanceAll('bitmex');
+         dd($data);
+
+         //test
+         $obj = new StrategyController();
+         $obj->highFrequency();
+         dd(1);
+         $data = WantService::markPriceChange();
+//         var_dump($data);
+         dd($data);
+
         // test
 //        BinanceService::tradeBtc2();
 ////        dd(1);

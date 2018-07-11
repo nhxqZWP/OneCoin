@@ -10,7 +10,7 @@
 
 namespace App\Http\Services;
 
-class BitmexService
+class Bitmex
 {
 
      //const API_URL = 'https://testnet.bitmex.com';
