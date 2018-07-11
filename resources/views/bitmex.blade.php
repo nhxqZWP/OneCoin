@@ -75,7 +75,7 @@
             <br><br>
             钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
         </div>
-        <div class="" style="width:800px;border:1px solid;">
+        <div class="" style="width:600px;border:1px solid;">
             <table class="table table-striped">
                 <tr>
                     <td></td>
@@ -105,7 +105,7 @@
             </table>
         </div>
         <br>
-        <div class="title m-b-md" style="width:800px;height:500px; overflow:scroll; border:1px solid;">
+        <div class="title m-b-md" style="width:600px;height:500px; overflow:scroll; border:1px solid;">
             <table class="table table-striped">
                 <tr>
                     <td>时间</td>
