@@ -65,7 +65,7 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
+<div class="text-center">
     {{--<div class="top-center links">--}}
         {{--钱包余额: {{$xbt}} XBT&nbsp;&nbsp; --}}{{--USDT: {{$usdt}}--}}
     {{--</div>--}}
@@ -75,7 +75,7 @@
             <br><br>
             钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
         </div>
-        <div class="" style="width:800px;border:1px solid;">
+        <div class="" style="border:1px solid;">
             <table class="table table-striped">
                 <tr>
                     <td></td>
@@ -105,7 +105,7 @@
             </table>
         </div>
         <br>
-        <div class="title m-b-md" style="width:800px;height:500px; overflow:scroll; border:1px solid;">
+        <div class="title m-b-md" style="overflow:scroll; border:1px solid;">
             <table class="table table-striped">
                 <tr>
                     <td>时间</td>
@@ -128,7 +128,7 @@
             </table>
         </div>
 
-        <div class="links" style="width: 800px">
+        <div class="links" style="">
             {{--<a href="https://www.binance.com/tradeDetail.html?symbol=BTC_USDT">Binance BTCUSDT</a>--}}
             钱包记录
         </div>
