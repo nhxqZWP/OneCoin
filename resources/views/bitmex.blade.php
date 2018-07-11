@@ -67,11 +67,14 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    <div class="top-center links">
-        钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
-    </div>
+    {{--<div class="top-center links">--}}
+        {{--钱包余额: {{$xbt}} XBT&nbsp;&nbsp; --}}{{--USDT: {{$usdt}}--}}
+    {{--</div>--}}
 
     <div class="content">
+        <div class="top-center links">
+            钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
+        </div>
         <div class="" style="width:800px;border:1px solid;">
             <table class="table table-striped">
                 <tr>
@@ -92,7 +95,7 @@
                 <tr>
                     <td>推荐等级(佣金百分比)</td>
                     <td></td>
-                    <td>{{$affi['payoutPcnt']*100}} %}</td>
+                    <td>{{$affi['payoutPcnt']*100}} %</td>
                 </tr>
                 <tr>
                     <td>推荐人奖励</td>
@@ -100,6 +103,7 @@
                     <td>{{$affi['pendingPayout'] / pow(10, 8)}} XBT</td>
                 </tr>
             </table>
+            <br>
         </div>
         <div class="title m-b-md" style="width:800px;height:500px; overflow:scroll; border:1px solid;">
             <table class="table table-striped">
