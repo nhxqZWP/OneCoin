@@ -16,7 +16,8 @@ class IndexController extends Controller
          list($s, $amount) = WantService::getBalanceAll('bitmex');
          $xbt = $amount['amount'] / pow(10, 8);
          list($s, $walletHistory) = WantService::getWalletHistory('bitmex');
-         dd($walletHistory);
+         return view('bitmex', ['xbt'=> $xbt, 'list' => $walletHistory]);
+//         dd($walletHistory);
 
          //test
          $obj = new StrategyController();

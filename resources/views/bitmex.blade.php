@@ -68,31 +68,27 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="top-right links">
-        XBT: {{$btc}} &nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
+        XBT: {{$xbt}} &nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
     </div>
 
     <div class="content">
         <div class="title m-b-md" style="width:800px;height:500px; overflow:scroll; border:1px solid;">
             <table class="table table-striped">
                 <tr>
-                    <td>ID</td>
-                    <td>Price</td>
-                    <td>Use</td>
-                    <td>Amount</td>
-                    <td>Type</td>
-                    <td>Profit</td>
-                    <td>Time</td>
+                    <td>时间</td>
+                    <td>类型</td>
+                    <td>金额</td>
+                    <td>状态</td>
+                    <td>钱包余额</td>
                 </tr>
                 @if (!empty($list))
                     @foreach($list as $item)
                         <tr>
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->price / pow(10, 8)}}</td>
-                            <td>{{$item->use / pow(10, 8)}}</td>
-                            <td>{{$item->amount / pow(10, 8)}}</td>
-                            <td>{{$item->type == 0 ? 'buy' : 'sell'}}</td>
-                            <td>{{$item->profit / pow(10, 6)}}%</td>
-                            <td>{{$item->created_at}}</td>
+                            <td>{{$item->transactTime}}</td>
+                            <td>{{$item->transactType}}</td>
+                            <td>{{$item->amount / pow(10, 8)}}{{$item->currency}}</td>
+                            <td>{{$item->transactStatus}}</td>
+                            <td>{{$item->walletBalance / pow(10, 6)}}{{$item->currency}}</td>
                         </tr>
                     @endforeach
                 @endif
