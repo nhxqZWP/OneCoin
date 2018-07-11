@@ -378,6 +378,17 @@ class Bitmex
           return $this->authQuery($data);
      }
 
+     public function getAffiliateStatus()
+     {
+          $data['method'] = "GET";
+          $data['function'] = "user/affiliateStatus";
+          $data['params'] = array(
+               "currency" => "XBt"
+          );
+
+          return $this->authQuery($data);
+     }
+
      /*
       * Get Order Book
       *

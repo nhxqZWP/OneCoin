@@ -92,7 +92,7 @@ class WantService
                     };
                     break;
                case 'bitmex':
-                    $data = app('Bitmex')->getWallet();
+                    $data = app('Bitmex')->getAffiliateStatus();
                     break;
           }
           return $data;
