@@ -72,6 +72,7 @@
 
     <div class="content">
         <div class="top-center links">
+            <br><br>
             钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
         </div>
         <div class="" style="width:800px;border:1px solid;">
