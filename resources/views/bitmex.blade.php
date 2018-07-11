@@ -36,9 +36,8 @@
         }
 
         .top-center {
-            position: absolute;
-            right: 10px;
-            top: 18px;
+            position: relative;
+            margin: 0 auto;
         }
 
         .content {
