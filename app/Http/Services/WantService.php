@@ -93,7 +93,25 @@ class WantService
                     break;
                case 'bitmex':
                     $data = app('Bitmex')->getWallet();
+                    $data = [0, $data];
 //                    $data = app('Bitmex')->getAffiliateStatus();
+                    break;
+          }
+          return $data;
+     }
+
+     // 获取钱包历史
+     public static function getWalletHistory($platform = 'bitmex')
+     {
+          $data = array();
+          switch ($platform) {
+               case 'binance' : ;
+                    break;
+               case 'fcoin' : ;
+                    break;
+               case 'bitmex':
+                    $data = app('Bitmex')->getWalletHistory();
+                    $data = [0, $data];
                     break;
           }
           return $data;

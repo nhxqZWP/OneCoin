@@ -13,8 +13,10 @@ class IndexController extends Controller
     public function getIndex()
     {
          //bitmex test
-         $data = WantService::getBalanceAll('bitmex');
-         dd($data);
+         list($s, $amount) = WantService::getBalanceAll('bitmex');
+         $xbt = $amount['amount'] / pow(10, 8);
+         list($s, $walletHistory) = WantService::getWalletHistory('bitmex');
+         dd($walletHistory);
 
          //test
          $obj = new StrategyController();
