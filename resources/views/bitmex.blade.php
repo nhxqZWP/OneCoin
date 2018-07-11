@@ -117,7 +117,7 @@
                     @foreach($list as $item)
                         <tr>
                             <td>{{substr($item['transactTime'], 0, 10)}}</td>
-                            <td>{{$item['amount'] / pow(10, 8)}}{{$item['currency']}}</td>
+                            <td>{{number_format($item['amount'] / pow(10, 8), 4, '.', '')}}{{$item['currency']}}</td>
                             <td>{{number_format($item['walletBalance'] / pow(10, 8), 4, '.', '')}}{{$item['currency']}}</td>
                         </tr>
                     @endforeach
