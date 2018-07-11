@@ -72,7 +72,7 @@
     </div>
 
     <div class="content">
-        <div class="title m-b-md" style="width:800px;border:1px solid;">
+        <div class="" style="width:800px;border:1px solid;">
             <table class="table table-striped">
                 <tr>
                     <td></td>
@@ -82,12 +82,12 @@
                 <tr>
                     <td>总交易额</td>
                     <td>{{$affi['prevTurnover']/pow(10,8)}} XBT</td>
-                    <td>{{$affi['execTurnover'] / pow(10, 8)}} XBT}</td>
+                    <td>{{$affi['execTurnover'] / pow(10, 8)}} XBT</td>
                 </tr>
                 <tr>
                     <td>已支付佣金</td>
                     <td>{{$affi['prevComm']/pow(10,8)}} XBT</td>
-                    <td>{{$affi['execComm'] / pow(10, 8)}} XBT}</td>
+                    <td>{{$affi['execComm'] / pow(10, 8)}} XBT</td>
                 </tr>
                 <tr>
                     <td>推荐等级(佣金百分比)</td>
@@ -97,7 +97,7 @@
                 <tr>
                     <td>推荐人奖励</td>
                     <td>{{$affi['prevPayout']/pow(10,8)}} XBT</td>
-                    <td>{{$affi['pendingPayout'] / pow(10, 8)}} XBT}</td>
+                    <td>{{$affi['pendingPayout'] / pow(10, 8)}} XBT</td>
                 </tr>
             </table>
         </div>
