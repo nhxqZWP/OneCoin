@@ -84,11 +84,11 @@
                 @if (!empty($list))
                     @foreach($list as $item)
                         <tr>
-                            <td>{{$item->transactTime}}</td>
-                            <td>{{$item->transactType}}</td>
-                            <td>{{$item->amount / pow(10, 8)}}{{$item->currency}}</td>
-                            <td>{{$item->transactStatus}}</td>
-                            <td>{{$item->walletBalance / pow(10, 6)}}{{$item->currency}}</td>
+                            <td>{{$item['transactTime']}}</td>
+                            <td>{{$item['transactType']}}</td>
+                            <td>{{$item['amount'] / pow(10, 8)}}{{$item['currency']}}</td>
+                            <td>{{$item['transactStatus']}}</td>
+                            <td>{{$item['walletBalance'] / pow(10, 6)}}{{$item['currency']}}</td>
                         </tr>
                     @endforeach
                 @endif
