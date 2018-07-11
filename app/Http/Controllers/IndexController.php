@@ -17,8 +17,7 @@ class IndexController extends Controller
          $xbt = $amount['amount'] / pow(10, 8);
          list($s, $walletHistory) = WantService::getWalletHistory('bitmex');
          list($s, $affi) = WantService::getAffiliateStatus('bitmex');
-         dd($affi);
-         return view('bitmex', ['xbt'=> $xbt, 'list' => $walletHistory]);
+         return view('bitmex', ['xbt'=> $xbt, 'list' => $walletHistory, 'affi' => $affi]);
 //         dd($walletHistory);
 
          //test
