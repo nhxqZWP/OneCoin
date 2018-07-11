@@ -42,9 +42,6 @@ class WantService
                          $data = [$data['status'], $data['msg']];
                     };
                     break;
-               case 'bitmex':
-                    $data = app('Bitmex')->getTicker();
-                    break;
           }
           return $data;
      }
@@ -400,6 +397,9 @@ class WantService
                     } else {
                          $data = [$data['status'], $data['msg']];
                     }
+                    break;
+               case 'bitmex':
+                    $data = app('Bitmex')->getTicker();
                     break;
           }
           return $data;

@@ -73,7 +73,8 @@
     <div class="content">
         <div class="top-center links">
             <br><br>
-            钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
+            钱包余额: {{number_format($xbt, 4, '.', '')}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}} <br>
+            XBT现价: {{$lastPrice}} usdt
         </div>
         <div class="" style="border:1px solid;">
             <table class="table table-striped">
@@ -84,23 +85,23 @@
                 </tr>
                 <tr>
                     <td>总交易额</td>
-                    <td>{{$affi['prevTurnover']/pow(10,8)}} XBT</td>
-                    <td>{{$affi['execTurnover'] / pow(10, 8)}} XBT</td>
+                    <td>{{number_format($affi['prevTurnover']/pow(10,8), 4, '.', '')}} XBT</td>
+                    <td>{{number_format($affi['execTurnover'] / pow(10, 8), 4, '.', '')}} XBT</td>
                 </tr>
                 <tr>
                     <td>已支付佣金</td>
-                    <td>{{$affi['prevComm']/pow(10,8)}} XBT</td>
-                    <td>{{$affi['execComm'] / pow(10, 8)}} XBT</td>
+                    <td>{{number_format($affi['prevComm']/pow(10,8), 4, '.', '')}} XBT</td>
+                    <td>{{number_format($affi['execComm'] / pow(10, 8), 4, '.', '')}} XBT</td>
                 </tr>
                 <tr>
-                    <td>推荐等级(佣金百分比)</td>
+                    <td>推荐等级</td>
                     <td></td>
                     <td>{{$affi['payoutPcnt']*100}} %</td>
                 </tr>
                 <tr>
                     <td>推荐人奖励</td>
-                    <td>{{$affi['prevPayout']/pow(10,8)}} XBT</td>
-                    <td>{{$affi['pendingPayout'] / pow(10, 8)}} XBT</td>
+                    <td>{{number_format($affi['prevPayout']/pow(10,8), 4, '.', '')}} XBT</td>
+                    <td>{{number_format($affi['pendingPayout'] / pow(10, 8), 4, '.', '')}} XBT</td>
                 </tr>
             </table>
         </div>
@@ -109,29 +110,25 @@
             <table class="table table-striped">
                 <tr>
                     <td>时间</td>
-                    <td>类型</td>
                     <td>金额</td>
-                    <td>状态</td>
                     <td>钱包余额</td>
                 </tr>
                 @if (!empty($list))
                     @foreach($list as $item)
                         <tr>
-                            <td>{{$item['transactTime']}}</td>
-                            <td>{{$item['transactType']}}</td>
+                            <td>{{substr($item['transactTime'], 0, 10)}}</td>
                             <td>{{$item['amount'] / pow(10, 8)}}{{$item['currency']}}</td>
-                            <td>{{$item['transactStatus']}}</td>
-                            <td>{{$item['walletBalance'] / pow(10, 8)}}{{$item['currency']}}</td>
+                            <td>{{number_format($item['walletBalance'] / pow(10, 8), 4, '.', '')}}{{$item['currency']}}</td>
                         </tr>
                     @endforeach
                 @endif
             </table>
         </div>
 
-        <div class="links" style="">
+        {{--<div class="links" style="">--}}
             {{--<a href="https://www.binance.com/tradeDetail.html?symbol=BTC_USDT">Binance BTCUSDT</a>--}}
-            钱包记录
-        </div>
+            {{--钱包记录--}}
+        {{--</div>--}}
     </div>
 </div>
 </body>

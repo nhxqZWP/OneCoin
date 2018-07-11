@@ -17,7 +17,8 @@ class IndexController extends Controller
          $xbt = $amount['amount'] / pow(10, 8);
          list($s, $walletHistory) = WantService::getWalletHistory('bitmex');
          list($s, $affi) = WantService::getAffiliateStatus('bitmex');
-         return view('bitmex', ['xbt'=> $xbt, 'list' => $walletHistory, 'affi' => $affi]);
+         list($s, $lastPrice) = WantService::getLastPrice('bitmex');
+         return view('bitmex', ['xbt'=> $xbt, 'list' => $walletHistory, 'affi' => $affi, 'lastPrice' => $lastPrice['last']]);
 //         dd($walletHistory);
 
          //test
@@ -57,4 +58,13 @@ class IndexController extends Controller
 //        $data = array_values($data);
 //        dd($data);
     }
+
+     // 币值格式化
+     public static function coinShow($num, $decPlace = 8)
+     {
+          if (empty($num)) {
+               return number_format(0, $decPlace, '.', '');
+          }
+          return number_format($num / pow(10, 8), $decPlace, '.', '');
+     }
 }
