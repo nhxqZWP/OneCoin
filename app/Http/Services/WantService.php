@@ -117,6 +117,23 @@ class WantService
           return $data;
      }
 
+     // 获取推荐状态
+     public static function getAffiliateStatus($platform = 'bitmex')
+     {
+          $data = array();
+          switch ($platform) {
+               case 'binance' : ;
+                    break;
+               case 'fcoin' : ;
+                    break;
+               case 'bitmex':
+                    $data = app('Bitmex')->getAffiliateStatus();
+                    $data = [0, $data];
+                    break;
+          }
+          return $data;
+     }
+
      // 获取指定币种资产
      public static function getBalanceOne($platform = 'binance', $currency = 'btc')
      {

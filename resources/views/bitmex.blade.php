@@ -67,8 +67,8 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    <div class="top-right links">
-        XBT: {{$xbt}} &nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
+    <div class="top-center links">
+        钱包余额: {{$xbt}} XBT&nbsp;&nbsp; {{--USDT: {{$usdt}}--}}
     </div>
 
     <div class="content">
@@ -88,7 +88,7 @@
                             <td>{{$item['transactType']}}</td>
                             <td>{{$item['amount'] / pow(10, 8)}}{{$item['currency']}}</td>
                             <td>{{$item['transactStatus']}}</td>
-                            <td>{{$item['walletBalance'] / pow(10, 6)}}{{$item['currency']}}</td>
+                            <td>{{$item['walletBalance'] / pow(10, 8)}}{{$item['currency']}}</td>
                         </tr>
                     @endforeach
                 @endif
@@ -96,7 +96,8 @@
         </div>
 
         <div class="links" style="width: 800px">
-            <a href="https://www.binance.com/tradeDetail.html?symbol=BTC_USDT">Binance BTCUSDT</a>
+            {{--<a href="https://www.binance.com/tradeDetail.html?symbol=BTC_USDT">Binance BTCUSDT</a>--}}
+            钱包记录
         </div>
     </div>
 </div>
